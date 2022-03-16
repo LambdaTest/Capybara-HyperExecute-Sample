@@ -1,0 +1,17 @@
+server: "hub.lambdatest.com"
+user: "mayurp"
+key: "y1BYjotgPNHSRbRXuh1wndsTPgYFvSWokaWQxINfrErF6P7ijE"
+
+common_caps:
+  "build": "Capybara-HyperExecute"
+  "name": "Single-Test"
+
+browser_caps:
+  -
+    "LT:Options":
+      "browserName": "chrome"
+      "version": "latest"
+      # "platform": "Windows 10"
+      "platform": "MacOS Catalina"
+      "build": "Capybara-HyperExecute"
+      "name": "Single-Test"

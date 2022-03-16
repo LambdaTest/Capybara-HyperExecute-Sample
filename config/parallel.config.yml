@@ -1,0 +1,25 @@
+server: "hub.lambdatest.com"
+user: "<YOUR LAMBDATEST USERNAME>"
+key: "<YOUR LAMBDATEST KEY>"
+
+common_caps:
+  "build": "capybara-lambdatest"
+  "name": "parallel-Test"
+
+browser_caps:
+  -
+    "browser": "chrome"
+    "version": "latest"
+    "platform": "Windows 7"
+  -
+    "browser": "firefox"
+    "version": "latest"
+    "platform": "Windows 8.1"
+  -
+    "browser": "internet explorer"
+    "version": "latest"
+    "platform": "Windows 10"
+  -
+    "browser": "safari"
+    "version": "latest"
+    "platform": "macOS High Sierra"

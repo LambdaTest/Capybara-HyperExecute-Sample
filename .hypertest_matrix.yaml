@@ -1,0 +1,23 @@
+---
+version: "0.1"
+matrix:
+  os: [mac]
+  files: ["features/todo1.feature", "features/todo2.feature"]
+runson: ${matrix.os}
+testSuites:
+  - bundle exec cucumber "$files" --format html --out cucumber_results.html
+pre:
+  - bundle install --deployment
+cacheKey: '{{ checksum "Gemfile.lock" }}'
+cacheDirectories:
+  - ./vendor/bundle
+uploadArtefacts:
+ - name: report
+   path:
+     - cucumber_results.html
+report: true
+partialReports:
+ location: cucumber_results.html
+ type: html
+env:
+  AccessKey: ${{.secrets.AccessKey}}
