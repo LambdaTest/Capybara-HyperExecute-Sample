@@ -1,6 +1,6 @@
 server: "hub.lambdatest.com"
-user: "mayurp"
-key: "y1BYjotgPNHSRbRXuh1wndsTPgYFvSWokaWQxINfrErF6P7ijE"
+user: "<username>"
+key: "<accesskey"
 
 common_caps:
   "build": "Capybara-HyperExecute"
