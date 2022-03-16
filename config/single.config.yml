@@ -1,6 +1,6 @@
 server: "hub.lambdatest.com"
-user: "<username>"
-key: "<accesskey"
+user: "LT_USERNAME"
+key: "LT_ACCESS_KEY"
 
 common_caps:
   "build": "Capybara-HyperExecute"
