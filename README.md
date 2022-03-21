@@ -96,12 +96,12 @@ The target platform is set to Windows. Please set the *[runson]* key to *[mac]* 
 runson: mac
 ```
 
-Ruby-Capybara feature files in the 'feature' folder contain the feature Scenario run on the HyperExecute grid. In the example, the feature file *feature/ToDo.feature* run in parallel on the basis of scenario by using the specified input combinations.
+Ruby-Capybara feature files in the 'feature' folder contain the feature Scenario run on the HyperExecute grid. In the example, the feature file *feature/ToDo.feature* run in parallel on the basis of scenario by using the featuresified input combinations.
 
 ```yaml
 matrix:
   os: [mac]
-  files: ["spec/todo_test1.feature", "spec/todo_test2.feature"]
+  files: ["features/todo_test1.feature", "features/todo_test2.feature"]
 
 ```
 
@@ -223,8 +223,8 @@ The *testDiscovery* directive contains the command that gives details of the mod
 ```yaml
 testDiscovery:
   type: raw
-  mode: static
-  command: grep -nri -E 'it ".*." do' spec/*.feature | awk '{print$1}' | sed 's/\(.*\):/\1 /'
+  mode: dynamic
+  command: snooper --featureFilePaths=features/ --frameWork=java
 
   testRunnerCommand: bundle exec cucumber "$test" --format html --out cucumber_results.html
 ```
@@ -232,8 +232,8 @@ testDiscovery:
 Running the above command on the terminal will give a list of feature Scenario lines that are located in the Project folder:
 
 Test Discovery Output:
-spec/todo_test1.feature:4
-spec/todo_test2.feature:4
+features/todo_test1.feature:4
+features/todo_test2.feature:4
 
 The *testRunnerCommand* contains the command that is used for triggering the test. The output fetched from the *testDiscoverer* command acts as an input to the *testRunner* command.
 

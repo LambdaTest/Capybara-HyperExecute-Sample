@@ -11,7 +11,7 @@ browser_caps:
     "LT:Options":
       "browserName": "chrome"
       "version": "latest"
-      # "platform": "Windows 10"
-      "platform": "MacOS Catalina"
+      "platform": "Windows 10"
+      # "platform": "MacOS Catalina"
       "build": "Capybara-HyperExecute"
       "name": "Single-Test"

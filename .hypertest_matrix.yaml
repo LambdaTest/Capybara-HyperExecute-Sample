@@ -1,7 +1,7 @@
 ---
 version: "0.1"
 matrix:
-  os: [mac]
+  os: [win]
   files: ["features/todo1.feature", "features/todo2.feature"]
 runson: ${matrix.os}
 testSuites:

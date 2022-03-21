@@ -3,7 +3,7 @@ version: "0.1"
 globalTimeout: 90
 testSuiteTimeout: 90
 testSuiteStep: 90
-runson: mac
+runson: win
 autosplit: true
 retryOnFailure: false
 maxRetries: 5
