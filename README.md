@@ -112,6 +112,9 @@ testSuites:
   - bundle exec cucumber "$files" --format html --out cucumber_results.html
 ```
 
+![image](https://user-images.githubusercontent.com/76988093/160460365-56d37d40-e768-4017-a213-b69380f496fb.png)
+
+
 ### Pre Steps and Dependency Caching
 
 Dependency caching is enabled in the YAML file to ensure that the package dependencies are not downloaded in subsequent runs. The first step is to set the Key used to cache directories.
@@ -134,6 +137,8 @@ pre:
   - bundle install --deployment
 ```
 
+<img width="1432" alt="image" src="https://user-images.githubusercontent.com/76988093/160453040-806b7158-c22b-4172-967c-751bcb2024e5.png">
+
 
 ### Artefacts Management
 
@@ -151,6 +156,8 @@ uploadArtefacts:
 ```
 
 HyperExecute also facilitates the provision to download the artefacts on your local machine. To download the artefacts, click on Artefacts button corresponding to the associated TestID.
+
+<img width="1436" alt="image" src="https://user-images.githubusercontent.com/76988093/160453113-d6a43240-630d-4537-a003-6191c1763e39.png">
 
 ## Test Execution
 
@@ -241,6 +248,9 @@ The *testRunnerCommand* contains the command that is used for triggering the tes
 testRunnerCommand: bundle exec cucumber "$test" --format html --out cucumber_results.html
 ```
 
+<img width="1437" alt="image" src="https://user-images.githubusercontent.com/76988093/160452913-8677ba80-77c6-4b12-a7fc-8f1241b38993.png">
+
+
 ### Artefacts Management
 
 The *mergeArtifacts* directive (which is by default *false*) is set to *true* for merging the artefacts and combing artefacts generated under each task.
@@ -254,9 +264,12 @@ uploadArtefacts:
  - name: report
    path:
      - cucumber_results.html
-
 ```
+
 HyperExecute also facilitates the provision to download the artefacts on your local machine. To download the artefacts, click on *Artefacts* button corresponding to the associated TestID.
+
+<img width="1436" alt="image" src="https://user-images.githubusercontent.com/76988093/160453113-d6a43240-630d-4537-a003-6191c1763e39.png">
+
 
 ### Test Execution
 
@@ -293,9 +306,14 @@ In case you want to generate hypertest report you can use below yaml directives 
 All you need to do is create an environment variable that uses the secret key:
 
 ```yaml
-env:
-  AccessKey: ${{.secrets.AccessKey}}
+report: true
+partialReports:
+ location: cucumber_results.html
+ type: html
 ```
+
+<img width="1438" alt="image" src="https://user-images.githubusercontent.com/76988093/160453286-03d5d23c-3e4c-4dfe-8a7a-e176dcd94533.png">
+
 
 ## Navigation in Automation Dashboard
 
