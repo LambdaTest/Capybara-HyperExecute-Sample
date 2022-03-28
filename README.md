@@ -10,7 +10,7 @@ The overall experience helps teams test code and fix issues at a much faster pac
 
 To know more about how HyperExecute does intelligent Test Orchestration, do check out [HyperExecute Getting Started Guide](https://www.lambdatest.com/support/docs/getting-started-with-hypertest/)
 
-# How to run Selenium automation tests on HyperExecute (using WbdriverIO framework)
+# How to run Selenium automation tests on HyperExecute (using Ruby-Capybara framework)
 
 * [Pre-requisites](#pre-requisites)
    - [Download Concierge](#download-concierge)
