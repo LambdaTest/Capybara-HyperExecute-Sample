@@ -14,7 +14,7 @@ testDiscovery:
   command: snooper --featureFilePaths=features/ --frameWork=java
 testRunnerCommand: bundle exec cucumber "$test" --format html --out cucumber_results.html
 pre:
-  - bundle install
+  - bundle install --deployment
 cacheKey: '{{ checksum "Gemfile.lock" }}'
 cacheDirectories:
   - ./vendor/bundle
