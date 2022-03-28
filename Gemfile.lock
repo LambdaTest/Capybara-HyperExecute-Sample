@@ -5,6 +5,7 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     backports (3.21.0)
     builder (3.2.4)
+    ffi (1.15.4)
     capybara (3.0.0)
       addressable
       mini_mime (>= 0.1.3)
@@ -38,6 +39,8 @@ GEM
     multi_test (0.1.2)
     nokogiri (1.10.1)
       mini_portile2 (~> 2.4.0)
+    nokogiri (1.11.0.rc2-x64-mingw32)
+      mini_portile2 (~> 2.4.0)
     parallel (1.21.0)
     parallel_tests (3.7.3)
       parallel
@@ -70,6 +73,7 @@ GEM
 
 PLATFORMS
   universal-darwin-19
+  x64-mingw32
 
 DEPENDENCIES
   capybara
@@ -79,6 +83,7 @@ DEPENDENCIES
   rake
   rspec
   selenium-webdriver
+  ffi
 
 BUNDLED WITH
    2.2.32
