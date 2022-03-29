@@ -16,14 +16,14 @@ To know more about how HyperExecute does intelligent Test Orchestration, do chec
    - [Download Concierge](#download-concierge)
    - [Configure Environment Variables](#configure-environment-variables)
 
-* [Matrix Execution with PyTest](#matrix-execution-with-pytest)
+* [Matrix Execution with PyTest](#matrix-execution-with-ruby-capybara-framework)
    - [Core](#core)
    - [Pre Steps and Dependency Caching](#pre-steps-and-dependency-caching)
    - [Post Steps](#post-steps)
    - [Artefacts Management](#artefacts-management)
    - [Test Execution](#test-execution)
 
-* [Auto-Split Execution with PyTest](#auto-split-execution-with-pytest)
+* [Auto-Split Execution with PyTest](#auto-split-execution-with-ruby-capybara-framework)
    - [Core](#core-1)
    - [Pre Steps and Dependency Caching](#pre-steps-and-dependency-caching-1)
    - [Post Steps](#post-steps-1)
@@ -72,7 +72,7 @@ set LT_USERNAME=LT_USERNAME
 set LT_ACCESS_KEY=LT_ACCESS_KEY
 ```
 
-# Matrix Execution with PyTest
+# Matrix Execution with Ruby Capybara Framework
 
 Matrix-based test execution is used for running the same tests across different test (or input) combinations. The Matrix directive in HyperExecute YAML file is a *key:value* pair where value is an array of strings.
 
@@ -170,7 +170,7 @@ The CLI option *--config* is used for providing the custom HyperExecute YAML fil
 Visit [HyperExecute Automation Dashboard](https://automation.lambdatest.com/hypertest) to check the status of execution:
 
 
-## Auto-Split Execution with Ruby-Capybara
+## Auto-Split Execution with Ruby Capybara Framework
 
 Auto-split execution mechanism lets you run tests at predefined concurrency and distribute the tests over the available infrastructure. Concurrency can be achieved at different levels - file, module, test suite, test, scenario, etc.
 
@@ -273,7 +273,7 @@ HyperExecute also facilitates the provision to download the artefacts on your lo
 
 ### Test Execution
 
-The CLI option *--config* is used for providing the custom HyperExecute YAML file (i.e. *hypertest_matrix.yaml*). Run the following command on the terminal to trigger the tests in Python files on the HyperExecute grid. The *--download-artifacts* option is used to inform HyperExecute to download the artefacts for the job.
+The CLI option *--config* is used for providing the custom HyperExecute YAML file (i.e. *hypertest_matrix.yaml*). Run the following command on the terminal to trigger the tests in Ruby feature files on the HyperExecute grid. The *--download-artifacts* option is used to inform HyperExecute to download the artefacts for the job.
 
 ```bash
 ./concierge --config --verbose -i .hypertest_matrix.yaml
