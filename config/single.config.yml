@@ -15,4 +15,4 @@ browser_caps:
       # "platform": "MacOS Catalina"
       "build": "Capybara-HyperExecute"
       "name": "Single-Test"
-      "selenium_version": "4.0.0"
+      "selenium_version": "4.0.0" 
