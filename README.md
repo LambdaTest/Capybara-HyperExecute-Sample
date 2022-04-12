@@ -150,12 +150,11 @@ testRunnerCommand: bundle exec cucumber "$test" --format html --out cucumber_res
 
 <img width="1437" alt="image" src="https://user-images.githubusercontent.com/76988093/160452913-8677ba80-77c6-4b12-a7fc-8f1241b38993.png">
 
-
 ### Artifacts Management
 
 The *mergeArtifacts* directive (which is by default *false*) is set to *true* for merging the artifacts and combing artifacts generated under each task.
 
-The *uploadArtefacts* directive informs HyperExecute to upload artifacts [files, reports, etc.] generated after task completion.  In the example, *path* consists of a regex for parsing the directory (i.e. *reports* that contains the test reports).
+The *uploadArtefacts* directive informs HyperExecute to upload artifacts [files, reports, etc.] generated after task completion. In the example, *path* consists of a regex for parsing the directory (i.e. *reports* that contains the test reports).
 
 ```yaml
 mergeArtifacts: true
@@ -251,8 +250,8 @@ pre:
 
 ### Artifacts Management
 
-The *mergeArtifacts* directive (which is by default *false*) is set to *true* for merging the artifacts and combing artifacts generated under each task.
 
+The *mergeArtifacts* directive (which is by default *false*) is set to *true* for merging the artifacts and combing artifacts generated under each task.
 The *uploadArtefacts* directive informs HyperExecute to upload artifacts [files, reports, etc.] generated after task completion. In the example, *path* consists of a regex for parsing the directory (i.e. *reports* that contains the test reports).
 
 ```yaml
@@ -264,16 +263,17 @@ uploadArtefacts:
      - cucumber_results.html
 ```
 
-HyperExecute also facilitates the provision to download the artifacts on your local machine. To download the artifacts, click on Artifacts button corresponding to the associated TestID.
+HyperExecute also facilitates the provision to download the artifacts on your local machine. To download the artifacts, click on *Artifacts* button corresponding to the associated TestID.
 
 <img width="1436" alt="image" src="https://user-images.githubusercontent.com/76988093/160453113-d6a43240-630d-4537-a003-6191c1763e39.png">
 
-## Test Execution
+### Test Execution
 
-The CLI option *--config* is used for providing the custom HyperExecute YAML file (i.e. *hyperexecute_matrix.yaml*). Run the following command on the terminal to trigger the tests in feature file Scenario on the HyperExecute grid.
+The CLI option *--config* is used for providing the custom HyperExecute YAML file (i.e. *hyperexecute_matrix.yaml*). Run the following command on the terminal to trigger the tests in Ruby feature files on the HyperExecute grid.
+The *--download-artifacts* option is used to inform HyperExecute to download the artifacts for the job.
 
 ```bash
-./hyperexecute --config --verbose -i hyperexecute_matrix.yaml
+./hyperexecute --config --verbose -i .hyperexecute_matrix.yaml
 ```
 
 Visit [HyperExecute Automation Dashboard](https://automation.lambdatest.com/hyperexecute) to check the status of execution:
