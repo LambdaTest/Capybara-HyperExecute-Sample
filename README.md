@@ -16,18 +16,20 @@ To know more about how HyperExecute does intelligent Test Orchestration, do chec
    - [Download HyperExecute CLI](#download-hyperexecute-cli)
    - [Configure Environment Variables](#configure-environment-variables)
 
-* [Matrix Execution with Ruby-Capybara](#matrix-execution-with-ruby-capybara-framework)
+
+* [Auto-Split Execution with Ruby-Capybara](#auto-split-execution-with-ruby-capybara-framework)
    - [Core](#core)
    - [Pre Steps and Dependency Caching](#pre-steps-and-dependency-caching)
    - [Artifacts Management](#artifacts-management)
    - [Test Execution](#test-execution)
 
-* [Auto-Split Execution with Ruby-Capybara](#auto-split-execution-with-ruby-capybara-framework)
+* [Matrix Execution with Ruby-Capybara](#matrix-execution-with-ruby-capybara-framework)
    - [Core](#core-1)
    - [Pre Steps and Dependency Caching](#pre-steps-and-dependency-caching-1)
    - [Artifacts Management](#artifacts-management-1)
    - [Test Execution](#test-execution-1)
 
+* [Run Capybara tests on Windows and Linux platforms](#run-capybara-tests-on-windows-and-linux-platforms)
 * [Secrets Management](#secrets-management)
 * [Navigation in Automation Dashboard](#navigation-in-automation-dashboard)
 
@@ -69,6 +71,114 @@ For Windows:
 set LT_USERNAME=LT_USERNAME
 set LT_ACCESS_KEY=LT_ACCESS_KEY
 ```
+
+## Auto-Split Execution with Ruby Capybara Framework
+
+Auto-split execution mechanism lets you run tests at predefined concurrency and distribute the tests over the available infrastructure. Concurrency can be achieved at different levels - file, module, test suite, test, scenario, etc.
+
+For more information about auto-split execution, check out the [Auto-Split Getting Started Guide](https://www.lambdatest.com/support/docs/getting-started-with-hyperexecute/#smart-auto-test-splitting)
+
+### Core
+
+Auto-split YAML file (*hyperexecute_autosplit.yaml*) in the repo contains the following configuration:
+
+```yaml
+globalTimeout: 90
+testSuiteTimeout: 90
+testSuiteStep: 90
+```
+
+Global timeout, testSuite timeout, and testSuite timeout are set to 90 minutes.
+
+The *runson* key determines the platform (or operating system) on which the tests are executed. Here we have set the target OS as Windows.
+
+```yaml
+runson: win
+```
+
+Auto-split is set to true in the YAML file.
+
+```yaml
+ autosplit: true
+```
+
+*retryOnFailure* is set to true, instructing HyperExecute to retry failed command(s). The retry operation is carried out till the number of retries mentioned in *maxRetries* are exhausted or the command execution results in a *Pass*. In addition, the concurrency (i.e. number of parallel sessions) is set to 2.
+
+```yaml
+retryOnFailure: true
+runson: win
+maxRetries: 2
+```
+
+## Pre Steps and Dependency Caching
+
+To leverage the advantage offered by *Dependency Caching* in HyperExecute, the integrity of *package-lock.json* is checked using the checksum functionality.
+
+```yaml
+cacheKey: '{{ checksum "Gemfile.lock" }}'
+```
+
+The caching advantage offered by *NPM* can be leveraged in HyperExecute, whereby the downloaded packages can be stored (or cached) in a secure server for future executions. The packages available in the cache will only be used if the checksum stage results in a Pass.
+
+```yaml
+cacheDirectories:
+  - /vendor
+```
+
+The *testDiscovery* directive contains the command that gives details of the mode of execution, along with detailing the command that is used for test execution. Here, we are fetching the list of feature file scenario that would be further executed using the *value* passed in the *testRunnerCommand*
+
+```yaml
+testDiscovery:
+  type: raw
+  mode: dynamic
+  command: snooper --featureFilePaths=features/ --frameWork=java
+
+  testRunnerCommand: bundle exec cucumber "$test" --format html --out cucumber_results.html
+```
+
+Running the above command on the terminal will give a list of feature Scenario lines that are located in the Project folder:
+
+Test Discovery Output:
+features/todo_test1.feature:4
+features/todo_test2.feature:4
+
+The *testRunnerCommand* contains the command that is used for triggering the test. The output fetched from the *testDiscoverer* command acts as an input to the *testRunner* command.
+
+```yaml
+testRunnerCommand: bundle exec cucumber "$test" --format html --out cucumber_results.html
+```
+
+<img width="1437" alt="image" src="https://user-images.githubusercontent.com/76988093/160452913-8677ba80-77c6-4b12-a7fc-8f1241b38993.png">
+
+### Artifacts Management
+
+The *mergeArtifacts* directive (which is by default *false*) is set to *true* for merging the artifacts and combing artifacts generated under each task.
+
+The *uploadArtefacts* directive informs HyperExecute to upload artifacts [files, reports, etc.] generated after task completion. In the example, *path* consists of a regex for parsing the directory (i.e. *reports* that contains the test reports).
+
+```yaml
+mergeArtifacts: true
+
+uploadArtefacts:
+ - name: report
+   path:
+     - cucumber_results.html
+```
+
+HyperExecute also facilitates the provision to download the artifacts on your local machine. To download the artifacts, click on *Artifacts* button corresponding to the associated TestID.
+
+<img width="1436" alt="image" src="https://user-images.githubusercontent.com/76988093/160453113-d6a43240-630d-4537-a003-6191c1763e39.png">
+
+
+### Test Execution
+
+The CLI option *--config* is used for providing the custom HyperExecute YAML file (i.e. *hyperexecute_matrix.yaml*). Run the following command on the terminal to trigger the tests in Ruby feature files on the HyperExecute grid. The *--download-artifacts* option is used to inform HyperExecute to download the artifacts for the job.
+
+```bash
+./hyperexecute --config --verbose -i .hyperexecute_matrix.yaml
+```
+
+Visit [HyperExecute Automation Dashboard](https://automation.lambdatest.com/hyperexecute) to check the status of execution
 
 # Matrix Execution with Ruby Capybara Framework
 
@@ -140,120 +250,9 @@ pre:
 
 ### Artifacts Management
 
-The *mergeArtifacts* directive (which is by default *false*) is set to *true* for merging the artifacts and combining artifacts generated under each task.
 
+The *mergeArtifacts* directive (which is by default *false*) is set to *true* for merging the artifacts and combing artifacts generated under each task.
 The *uploadArtefacts* directive informs HyperExecute to upload artifacts [files, reports, etc.] generated after task completion. In the example, *path* consists of a regex for parsing the directory (i.e. *reports* that contains the test reports).
-
-```yaml
-mergeArtifacts: true
-
-uploadArtefacts:
- - name: report
-   path:
-     - cucumber_results.html
-```
-
-HyperExecute also facilitates the provision to download the artifacts on your local machine. To download the artifacts, click on Artifacts button corresponding to the associated TestID.
-
-<img width="1436" alt="image" src="https://user-images.githubusercontent.com/76988093/160453113-d6a43240-630d-4537-a003-6191c1763e39.png">
-
-## Test Execution
-
-The CLI option *--config* is used for providing the custom HyperExecute YAML file (i.e. *hyperexecute_matrix.yaml*). Run the following command on the terminal to trigger the tests in feature file Scenario on the HyperExecute grid.
-
-```bash
-./hyperexecute --config --verbose -i hyperexecute_matrix.yaml
-```
-
-Visit [HyperExecute Automation Dashboard](https://automation.lambdatest.com/hyperexecute) to check the status of execution:
-
-
-## Auto-Split Execution with Ruby Capybara Framework
-
-Auto-split execution mechanism lets you run tests at predefined concurrency and distribute the tests over the available infrastructure. Concurrency can be achieved at different levels - file, module, test suite, test, scenario, etc.
-
-For more information about auto-split execution, check out the [Auto-Split Getting Started Guide](https://www.lambdatest.com/support/docs/getting-started-with-hyperexecute/#smart-auto-test-splitting)
-
-### Core
-
-Auto-split YAML file (*hyperexecute_autosplit.yaml*) in the repo contains the following configuration:
-
-```yaml
-globalTimeout: 90
-testSuiteTimeout: 90
-testSuiteStep: 90
-```
-
-Global timeout, testSuite timeout, and testSuite timeout are set to 90 minutes.
-
-The *runson* key determines the platform (or operating system) on which the tests are executed. Here we have set the target OS as Windows.
-
-```yaml
-runson: win
-```
-
-Auto-split is set to true in the YAML file.
-
-```yaml
- autosplit: true
-```
-
-*retryOnFailure* is set to true, instructing HyperExecute to retry failed command(s). The retry operation is carried out till the number of retries mentioned in *maxRetries* are exhausted or the command execution results in a *Pass*. In addition, the concurrency (i.e. number of parallel sessions) is set to 2.
-
-```yaml
-retryOnFailure: true
-runson: win
-maxRetries: 2
-```
-
-## Pre Steps and Dependency Caching
-
-To leverage the advantage offered by *Dependency Caching* in HyperExecute, the integrity of *package-lock.json* is checked using the checksum functionality.
-
-```yaml
-cacheKey: '{{ checksum "Gemfile.lock" }}'
-```
-
-The caching advantage offered by *NPM* can be leveraged in HyperExecute, whereby the downloaded packages can be stored (or cached) in a secure server for future executions. The packages available in the cache will only be used if the checksum stage results in a Pass.
-
-
-
-```yaml
-cacheDirectories:
-  - /vendor
-```
-
-The *testDiscovery* directive contains the command that gives details of the mode of execution, along with detailing the command that is used for test execution. Here, we are fetching the list of feature file scenario that would be further executed using the *value* passed in the *testRunnerCommand*
-
-```yaml
-testDiscovery:
-  type: raw
-  mode: dynamic
-  command: snooper --featureFilePaths=features/ --frameWork=java
-
-  testRunnerCommand: bundle exec cucumber "$test" --format html --out cucumber_results.html
-```
-
-Running the above command on the terminal will give a list of feature Scenario lines that are located in the Project folder:
-
-Test Discovery Output:
-features/todo_test1.feature:4
-features/todo_test2.feature:4
-
-The *testRunnerCommand* contains the command that is used for triggering the test. The output fetched from the *testDiscoverer* command acts as an input to the *testRunner* command.
-
-```yaml
-testRunnerCommand: bundle exec cucumber "$test" --format html --out cucumber_results.html
-```
-
-<img width="1437" alt="image" src="https://user-images.githubusercontent.com/76988093/160452913-8677ba80-77c6-4b12-a7fc-8f1241b38993.png">
-
-
-### Artifacts Management
-
-The *mergeArtifacts* directive (which is by default *false*) is set to *true* for merging the artifacts and combining artifacts generated under each task.
-
-The *uploadArtefacts* directive informs HyperExecute to upload artifacts [files, reports, etc.] generated after task completion.  In the example, *path* consists of a regex for parsing the directory (i.e. *reports* that contains the test reports).
 
 ```yaml
 mergeArtifacts: true
@@ -268,16 +267,32 @@ HyperExecute also facilitates the provision to download the artifacts on your lo
 
 <img width="1436" alt="image" src="https://user-images.githubusercontent.com/76988093/160453113-d6a43240-630d-4537-a003-6191c1763e39.png">
 
-
 ### Test Execution
 
-The CLI option *--config* is used for providing the custom HyperExecute YAML file (i.e. *hyperexecute_matrix.yaml*). Run the following command on the terminal to trigger the tests in Ruby feature files on the HyperExecute grid. The *--download-artifacts* option is used to inform HyperExecute to download the artifacts for the job.
+The CLI option *--config* is used for providing the custom HyperExecute YAML file (i.e. *hyperexecute_matrix.yaml*). Run the following command on the terminal to trigger the tests in Ruby feature files on the HyperExecute grid.
+The *--download-artifacts* option is used to inform HyperExecute to download the artifacts for the job.
 
 ```bash
 ./hyperexecute --config --verbose -i .hyperexecute_matrix.yaml
 ```
 
-Visit [HyperExecute Automation Dashboard](https://automation.lambdatest.com/hyperexecute) to check the status of execution
+Visit [HyperExecute Automation Dashboard](https://automation.lambdatest.com/hyperexecute) to check the status of execution:
+
+# Run Capybara tests on Windows and Linux platforms
+
+The CLI option --config is used for providing the custom HyperExecute YAML file (i.e. *yaml/.hyperexecute_simple_win.yaml* for Windows and *yaml/.hyperexecute_simple_linux.yaml* for Linux).
+
+Run the following command on the terminal to trigger tests on Windows platform:
+
+```bash
+./hyperexecute --config --verbose yaml/.hyperexecute_simple_win.yaml
+```
+
+Run the following command on the terminal to trigger tests on Linux platform:
+
+```bash
+./hyperexecute --config --verbose yaml/.hyperexecute_simple_linux.yaml
+```
 
 ## Secrets Management
 
