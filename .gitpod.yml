@@ -9,8 +9,8 @@ tasks:
     before: |
       wget https://downloads.lambdatest.com/hyperexecute/linux/hyperexecute
       chmod u+x hyperexecute
-      
+
     init: |
       echo "Performing test"
-      ./hyperexecute --user=$LT_USERNAME --key=$LT_ACCESS_KEY --config yaml/.hyperexecute_autosplit.yaml --download-artifacts --force-clean-artifacts
+      ./hyperexecute --user=$LT_USERNAME --key=$LT_ACCESS_KEY --config yaml/win/.hyperexecute_autosplit.yaml --download-artifacts --force-clean-artifacts
       echo "Test completion"

@@ -1,7 +1,11 @@
 ---
 version: "0.1"
-runson: win
+globalTimeout: 90
+testSuiteTimeout: 90
+testSuiteStep: 90
+runson: mac
 autosplit: true
+retryOnFailure: true
 maxRetries: 5
 concurrency: 2
 testDiscovery:
@@ -14,7 +18,13 @@ pre:
 cacheKey: '{{ checksum "Gemfile.lock" }}'
 cacheDirectories:
   - ./vendor/bundle
+uploadArtefacts:
+ - name: report
+   path:
+     - cucumber_results.html
 report: true
 partialReports:
  location: cucumber_results.html
  type: html
+env:
+   CONFIG_NAME: "mac"

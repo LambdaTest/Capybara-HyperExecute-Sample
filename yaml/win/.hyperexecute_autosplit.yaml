@@ -26,5 +26,5 @@ report: true
 partialReports:
  location: cucumber_results.html
  type: html
-# env:
-#   AccessKey: ${{.secrets.AccessKey}}
+env:
+   CONFIG_NAME: "win"

@@ -1,0 +1,17 @@
+server: "hub.lambdatest.com"
+user: "LT_USERNAME"
+key: "LT_ACCESS_KEY"
+
+common_caps:
+  "build": "Capybara-HyperExecute"
+  "name": "Single-Test"
+
+browser_caps:
+  -
+    "LT:Options":
+      "browserName": "chrome"
+      "version": "latest"
+      "platform": "Windows 10"
+      "build": "Capybara-HyperExecute"
+      "name": "Single-Test"
+      "selenium_version": "4.0.0"
