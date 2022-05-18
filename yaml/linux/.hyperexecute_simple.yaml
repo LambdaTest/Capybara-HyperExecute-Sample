@@ -18,3 +18,5 @@ report: true
 partialReports:
  location: cucumber_results.html
  type: html
+env:
+   CONFIG_NAME: "linux"

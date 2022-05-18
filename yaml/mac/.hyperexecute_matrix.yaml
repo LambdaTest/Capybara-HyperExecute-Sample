@@ -1,7 +1,7 @@
 ---
 version: "0.1"
 matrix:
-  os: [win]
+  os: [mac]
   files: ["features/todo1.feature", "features/todo2.feature"]
 runson: ${matrix.os}
 testSuites:
@@ -21,3 +21,5 @@ partialReports:
  type: html
 env:
   AccessKey: ${{.secrets.AccessKey}}
+env:
+   CONFIG_NAME: "mac"

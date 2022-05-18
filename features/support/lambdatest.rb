@@ -12,7 +12,7 @@ class Capybara::Selenium::Driver < Capybara::Driver::Base
 end
 
 TASK_ID = (ENV['TASK_ID'] || 0).to_i
-CONFIG_NAME = ENV['CONFIG_NAME'] || 'single'
+CONFIG_NAME = ENV['CONFIG_NAME'] || 'win'
 
 CONFIG = YAML.load(File.read(File.join(File.dirname(__FILE__), "../../config/#{CONFIG_NAME}.config.yml")))
 CONFIG['user'] = ENV['LT_USERNAME'] || CONFIG['user']
@@ -25,7 +25,7 @@ Capybara.register_driver :lambdatest do |app|
 
 if (CONFIG_NAME=='jenkins')
 puts ENV['LT_GRID_URL']
-lt_browser = ENV['LT_BROWSER_NAME']	
+lt_browser = ENV['LT_BROWSER_NAME']
 lt_os = ENV['LT_PLATFORM']
 lt_browser_version = ENV['LT_BROWSER_VERSION']
 lt_res = ENV['LT_RESOLUTION']
@@ -37,7 +37,7 @@ Capybara::Selenium::Driver.new(app,
 	    :desired_capabilities => @caps
 	  )
 
-else 
+else
   Capybara::Selenium::Driver.new(app,
     :browser => :remote,
     :url => "https://#{CONFIG['user']}:#{CONFIG['key']}@#{CONFIG['server']}/wd/hub",

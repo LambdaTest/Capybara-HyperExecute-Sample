@@ -1,0 +1,22 @@
+---
+version: "0.1"
+runson: win
+autosplit: true
+maxRetries: 5
+concurrency: 2
+testDiscovery:
+  type: raw
+  mode: dynamic
+  command: snooper --featureFilePaths=features/ --frameWork=java
+testRunnerCommand: bundle exec cucumber "$test" --format html --out cucumber_results.html
+pre:
+  - bundle install --deployment
+cacheKey: '{{ checksum "Gemfile.lock" }}'
+cacheDirectories:
+  - ./vendor/bundle
+report: true
+partialReports:
+ location: cucumber_results.html
+ type: html
+env:
+   CONFIG_NAME: "win"
