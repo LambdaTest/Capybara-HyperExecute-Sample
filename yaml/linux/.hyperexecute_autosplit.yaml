@@ -28,3 +28,5 @@ partialReports:
  type: html
 env:
    CONFIG_NAME: "linux"
+
+jobLabel: [selenium-capybara, linux, autosplit]

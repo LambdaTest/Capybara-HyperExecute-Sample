@@ -20,3 +20,5 @@ partialReports:
  type: html
 env:
    CONFIG_NAME: "win"
+
+jobLabel: [selenium-capybara, win, autosplit-simple]
