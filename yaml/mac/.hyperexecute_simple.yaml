@@ -20,3 +20,5 @@ partialReports:
  type: html
 env:
    CONFIG_NAME: "mac"
+
+jobLabel: [selenium-capybara, mac, autosplit-simple]

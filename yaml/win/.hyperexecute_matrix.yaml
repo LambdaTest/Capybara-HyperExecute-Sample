@@ -23,3 +23,5 @@ env:
   AccessKey: ${{.secrets.AccessKey}}
 env:
    CONFIG_NAME: "win"
+
+jobLabel: [selenium-capybara, win, matrix]
