@@ -5,7 +5,12 @@ testSuiteTimeout: 90
 testSuiteStep: 90
 runson: win
 autosplit: true
-retryOnFailure: true
+retryOnFailure: false
+
+runtime:
+ language: ruby
+ version: '3.0.2'
+
 maxRetries: 5
 concurrency: 2
 testDiscovery:
@@ -13,8 +18,9 @@ testDiscovery:
   mode: dynamic
   command: snooper --featureFilePaths=features/ --frameWork=java
 testRunnerCommand: bundle exec cucumber "$test" --format html --out cucumber_results.html
+
 pre:
-  - bundle install --deployment
+  - bundle install 
 cacheKey: '{{ checksum "Gemfile.lock" }}'
 cacheDirectories:
   - ./vendor/bundle
