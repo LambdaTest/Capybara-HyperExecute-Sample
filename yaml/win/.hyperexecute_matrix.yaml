@@ -4,10 +4,15 @@ matrix:
   os: [win]
   files: ["features/todo1.feature", "features/todo2.feature"]
 runson: ${matrix.os}
+
+runtime:
+ language: ruby
+ version: '3.0.2'
+
 testSuites:
   - bundle exec cucumber "$files" --format html --out cucumber_results.html
 pre:
-  - bundle install --deployment
+  - bundle install 
 cacheKey: '{{ checksum "Gemfile.lock" }}'
 cacheDirectories:
   - ./vendor/bundle
@@ -19,8 +24,7 @@ report: true
 partialReports:
  location: cucumber_results.html
  type: html
-env:
-  AccessKey: ${{.secrets.AccessKey}}
+
 env:
    CONFIG_NAME: "win"
 

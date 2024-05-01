@@ -8,13 +8,18 @@ autosplit: true
 retryOnFailure: true
 maxRetries: 5
 concurrency: 2
+
+runtime:
+ language: ruby
+ version: '3.0.2'
+
 testDiscovery:
   type: raw
   mode: dynamic
   command: snooper --featureFilePaths=features/ --frameWork=java
 testRunnerCommand: bundle exec cucumber "$test" --format html --out cucumber_results.html
 pre:
-  - bundle install --deployment
+  - bundle install 
 cacheKey: '{{ checksum "Gemfile.lock" }}'
 cacheDirectories:
   - ./vendor/bundle
@@ -26,6 +31,7 @@ report: true
 partialReports:
  location: cucumber_results.html
  type: html
+ 
 env:
    CONFIG_NAME: "linux"
 
