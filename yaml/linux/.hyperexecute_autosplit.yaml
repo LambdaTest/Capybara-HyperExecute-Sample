@@ -19,6 +19,7 @@ testDiscovery:
   command: snooper --featureFilePaths=features/ --frameWork=java
 testRunnerCommand: bundle exec cucumber "$test" --format html --out cucumber_results.html
 pre:
+  - gem install bundler:2.5.9
   - bundle install 
 cacheKey: '{{ checksum "Gemfile.lock" }}'
 cacheDirectories:
