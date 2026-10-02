@@ -12,10 +12,10 @@ testDiscovery:
   type: raw
   mode: remote
   command: snooper --featureFilePaths=features/ --frameWork=java
-testRunnerCommand: bundle exec cucumber "$test" --format html --out cucumber_results.html
+testRunnerCommand: arch -x86_64 bundle exec cucumber "$test" --format html --out cucumber_results.html
 pre:
-  - bundle install --deployment
-cacheKey: '{{ checksum "Gemfile.lock" }}'
+  - arch -x86_64 bundle install --deployment
+cacheKey: 'mac-x86-v1-{{ checksum "Gemfile.mac.lock" }}'
 cacheDirectories:
   - ./vendor/bundle
 uploadArtefacts:
@@ -28,5 +28,6 @@ partialReports:
  type: html
 env:
    CONFIG_NAME: "mac"
+   BUNDLE_GEMFILE: "Gemfile.mac"
 
 jobLabel: [selenium-capybara, mac, autosplit]

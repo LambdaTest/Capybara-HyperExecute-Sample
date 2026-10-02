@@ -9,3 +9,5 @@ artifacts
 hyperexecuteupdate
 artifacts-old/
 Gemfile.lock
+hyperexecute
+.ruby-version

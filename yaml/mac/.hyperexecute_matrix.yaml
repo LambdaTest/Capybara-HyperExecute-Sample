@@ -5,10 +5,10 @@ matrix:
   files: ["features/todo1.feature", "features/todo2.feature"]
 runson: ${matrix.os}
 testSuites:
-  - bundle exec cucumber "$files" --format html --out cucumber_results.html
+  - arch -x86_64 bundle exec cucumber "$files" --format html --out cucumber_results.html
 pre:
-  - bundle install --deployment
-cacheKey: '{{ checksum "Gemfile.lock" }}'
+  - arch -x86_64 bundle install --deployment
+cacheKey: 'mac-x86-v1-{{ checksum "Gemfile.mac.lock" }}'
 cacheDirectories:
   - ./vendor/bundle
 uploadArtefacts:
@@ -19,9 +19,9 @@ report: true
 partialReports:
  location: cucumber_results.html
  type: html
-env:
-  AccessKey: ${{.secrets.AccessKey}}
+
 env:
    CONFIG_NAME: "mac"
+   BUNDLE_GEMFILE: "Gemfile.mac"
 
 jobLabel: [selenium-capybara, mac, matrix]

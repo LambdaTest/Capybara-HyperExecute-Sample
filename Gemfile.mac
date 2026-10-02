@@ -1,0 +1,19 @@
+# macOS HyperExecute machines ship the system Ruby 2.6 (Bundler 1.17),
+# so the Mac YAMLs use this Gemfile via BUNDLE_GEMFILE with 2.6-compatible pins.
+source 'http://rubygems.org'
+
+gem 'mime-types', '~> 3.4'
+gem 'rake'
+gem 'cucumber', '~> 8.0.0'
+gem 'capybara', '~> 3.36.0'
+gem 'nokogiri', '~> 1.13.10'
+gem 'selenium-webdriver', '4.1.0'
+gem 'rspec'
+gem 'parallel_tests', '~> 3.13.0'
+gem "ffi", "~> 1.16.3"
+
+# transitive dependencies held back for Ruby 2.6 / RubyGems 3.0
+gem 'sys-uname', '~> 1.2.3'
+gem 'parallel', '~> 1.24.0'
+gem 'public_suffix', '~> 5.0'
+gem 'rubyzip', '~> 2.3.2'

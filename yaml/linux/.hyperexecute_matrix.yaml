@@ -26,5 +26,6 @@ partialReports:
  type: html
 env:
    CONFIG_NAME: "linux"
+   BUNDLE_PATH: "vendor/bundle"
 
 jobLabel: [selenium-capybara, linux, matrix]

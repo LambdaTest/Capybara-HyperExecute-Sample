@@ -1,7 +1,7 @@
 Feature: Add to Todo list functionality;
 
 Background:
-  Given I am on https://lambdatest.github.io/sample-todo-app/
+  Given I am on https://ltqa-frontend.lambdatestinternal.com/sample-todo-app/
 
   Scenario: Add Todo List With Playground
     When I click on first item
